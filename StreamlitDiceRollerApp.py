@@ -14,27 +14,28 @@ def roll_dice(dice_configurations):
 def main():
     st.title("Interactive Dice Roller Simulator")
     
-    # Dictionary to hold the count of each dice type
-    dice_counts = {'d4': 0, 'd6': 0, 'd8': 0, 'd10': 0, 'd12': 0, 'd20': 0, 'd100': 0}
+    # Initialize session state for dice counts if not already done
+    if 'dice_counts' not in st.session_state:
+        st.session_state.dice_counts = {'d4': 0, 'd6': 0, 'd8': 0, 'd10': 0, 'd12': 0, 'd20': 0, 'd100': 0}
 
     # Display dice buttons and track counts
-    col1, col2, col3 = st.columns(3)
-    dice_keys = list(dice_counts.keys())
+    cols = st.columns(3)
+    dice_keys = list(st.session_state.dice_counts.keys())
     for i, key in enumerate(dice_keys):
-        with (col1 if i % 3 == 0 else col2 if i % 3 == 1 else col3):
+        with cols[i % 3]:
             if st.button(f"Add {key}"):
-                dice_counts[key] += 1
+                st.session_state.dice_counts[key] += 1
 
     # Display current dice configuration
     st.write("Current dice selection:")
-    selected_config = ' '.join(f"{count}{die}" for die, count in dice_counts.items() if count > 0)
+    selected_config = ' '.join(f"{count}{die}" for die, count in st.session_state.dice_counts.items() if count > 0)
     st.write(selected_config)
 
     modifier = st.number_input("Enter the modifier to apply to the total roll (can be negative):", value=0)
 
     # Button to roll dice
-    if st.button("Roll Dice") and any(dice_counts.values()):
-        dice_configurations = [(count, int(die[1:])) for die, count in dice_counts.items() if count > 0]
+    if st.button("Roll Dice") and any(st.session_state.dice_counts.values()):
+        dice_configurations = [(count, int(die[1:])) for die, count in st.session_state.dice_counts.items() if count > 0]
         rolls, results = roll_dice(dice_configurations)
         roll_total = sum(rolls) + modifier
 
