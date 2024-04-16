@@ -79,14 +79,26 @@ def main():
     st.title("Interactive Dice Roller Simulator")
 
     # Crear campos de entrada para modificadores y mostrar los resultados calculados
-    st.sidebar.title("Ingrese valores para Modificadores")
-    abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
+    st.sidebar.title("Configure Modifiers")
+    abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma"]
     modifiers = {}
+    
+    # Modificadores que usan la tabla de conversión
     for ability in abilities:
-        value = st.sidebar.number_input(f"Valor de {ability}", min_value=1, max_value=30, value=10)
+        value = st.sidebar.number_input(f"Valor de {ability}", min_value=1, max_value=30, value=10, step=1)
         modifier = calculate_modifier(value)
         modifiers[ability] = modifier
         st.sidebar.write(f"Modificador de {ability}: {modifier}")
+    
+    # Modificadores que se ingresan directamente
+    direct_mods = ["Magia", "Competencia"]
+    for mod in direct_mods:
+        modifiers[mod] = st.sidebar.number_input(f"Modificador de {mod}", min_value=-10, max_value=10, value=0, step=1)
+
+    # Mostrar todos los modificadores en la aplicación principal
+    st.write("Modificadores:")
+    for ability, modifier in modifiers.items():
+        st.write(f"{ability}: {modifier}")
     
     # Initialize session state for dice counts if not already done
     if 'dice_counts' not in st.session_state:
