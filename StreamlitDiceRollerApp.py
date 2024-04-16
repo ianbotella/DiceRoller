@@ -11,6 +11,11 @@ def roll_dice(dice_configurations):
         results[f"{num_dice}d{sides_per_die}"] = dice_rolls
     return rolls, results
 
+def reset_dice_counts():
+    """Reset the dice counts to zero."""
+    for key in st.session_state.dice_counts.keys():
+        st.session_state.dice_counts[key] = 0
+
 def main():
     st.title("Interactive Dice Roller Simulator")
     
@@ -23,7 +28,7 @@ def main():
     dice_keys = list(st.session_state.dice_counts.keys())
     for i, key in enumerate(dice_keys):
         with cols[i % 3]:
-            if st.button(f"Add {key}"):
+            if st.button(f"{key}"):
                 st.session_state.dice_counts[key] += 1
 
     # Display current dice configuration
@@ -45,6 +50,13 @@ def main():
         st.write(f"**Total before modifier:** {sum(rolls)}")
         st.write(f"**Modifier:** {modifier}")
         st.write(f"**Final Result:** {roll_total}")
+
+        # Optionally reset the dice counts after rolling
+        reset_dice_counts()
+
+    # Button to manually reset dice selection
+    if st.button("Reset Dice"):
+        reset_dice_counts()
 
 if __name__ == "__main__":
     main()
