@@ -1,6 +1,29 @@
 import streamlit as st
 import random
 
+# CSS to customize button appearances
+st.markdown("""
+<style>
+button {
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+}
+.button-d4 { background-color: #cc0000; }
+.button-d6 { background-color: #cc0000; }
+.button-d8 { background-color: #cc0000; }
+.button-d10 { background-color: #cc0000; }
+.button-d12 { background-color: #cc0000; }
+.button-d20 { background-color: #cc0000; }
+.button-d100 { background-color: #cc0000; }
+button:hover {
+    transform: scale(1.1);
+}
+</style>
+""", unsafe_allow_html=True)
+
 def roll_dice(dice_configurations):
     """Roll specified configurations of dice and return individual rolls and results by type."""
     rolls = []
