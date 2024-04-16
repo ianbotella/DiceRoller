@@ -7,7 +7,7 @@ def roll_dice(num_dice, sides_per_die):
 def main():
   st.title("Dice Roller Simulator")
   num_dice = st.number_input("Enter the number of dice to roll:", min_value=1, value=1)
-  sides_per_die = st.number_input("Enter the number of sides per die:", min_value=2, vaue=4)
+  sides_per_die = st.number_input("Enter the number of sides per die:", min_value=2, value=4)
   modifier = st.number_input("Enter the modifier to apply to the total roll (can be negative):", value=0)
 
 if st.button("Roll Dice"):
