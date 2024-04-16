@@ -23,6 +23,43 @@ button:hover, .stButton>button:hover {
 </style>
 """, unsafe_allow_html=True)
 
+def calculate_modifier(value):
+    if value <= 1:
+        return -5
+    elif 2 <= value <= 3:
+        return -4
+    elif 4 <= value <= 5:
+        return -3
+    elif 6 <= value <= 7:
+        return -2
+    elif 8 <= value <= 9:
+        return -1
+    elif 10 <= value <= 11:
+        return 0
+    elif 12 <= value <= 13:
+        return 1
+    elif 14 <= value <= 15:
+        return 2
+    elif 16 <= value <= 17:
+        return 3
+    elif 18 <= value <= 19:
+        return 4
+    elif 20 <= value <= 21:
+        return 5
+    elif 22 <= value <= 23:
+        return 6
+    elif 24 <= value <= 25:
+        return 7
+    elif 26 <= value <= 27:
+        return 8
+    elif 28 <= value <= 29:
+        return 9
+    elif value >= 30:
+        return 10
+    else:
+        return 0  # Considerar un valor por defecto para entradas inválidas o fuera de rango
+
+
 def roll_dice(dice_configurations):
     """Roll specified configurations of dice and return individual rolls and results by type."""
     rolls = []
@@ -40,6 +77,16 @@ def reset_dice_counts():
 
 def main():
     st.title("Interactive Dice Roller Simulator")
+
+    # Crear campos de entrada para modificadores y mostrar los resultados calculados
+    st.sidebar.title("Ingrese valores para Modificadores")
+    abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
+    modifiers = {}
+    for ability in abilities:
+        value = st.sidebar.number_input(f"Valor de {ability}", min_value=1, max_value=30, value=10)
+        modifier = calculate_modifier(value)
+        modifiers[ability] = modifier
+        st.sidebar.write(f"Modificador de {ability}: {modifier}")
     
     # Initialize session state for dice counts if not already done
     if 'dice_counts' not in st.session_state:
