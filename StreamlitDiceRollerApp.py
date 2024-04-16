@@ -4,6 +4,11 @@ import random
 # CSS to customize button appearances
 st.markdown("""
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+
+html, body, [class*="css-"] {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px; /* Adjust the base font size if needed */
 button {
     color: white;
     font-size: 16px;
