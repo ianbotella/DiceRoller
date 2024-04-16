@@ -2,7 +2,7 @@ import streamlit as st
 import random
 
 def roll_dice(num_dice, sides_per_die):
-  return sum(random.randint(1, sides_per_die) for _ in range(num_dice))
+  return [random.randint(1, sides_per_die) for _ in range(num_dice)]
 
 def main():
   st.title("Dice Roller Simulator")
@@ -18,7 +18,7 @@ def main():
     'd20': 20,
     'd100': 100
   }
-  sides_per_die = st.selectbox("Select the type of die: ", list(dice_options.keys()), format_func=lambda x: f"{x} ({dice_options[x]} sides)")
+  selected_die = st.selectbox("Select the type of die:", list(dice_options.keys()), format_func=lambda x: f"{x} ({dice_options[x]} sides)")
   sides_per_die = dice_options[sides_per_die]
   
   modifier = st.number_input("Enter the modifier to apply to the total roll (can be negative):", value=0)
