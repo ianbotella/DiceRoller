@@ -12,10 +12,10 @@ def roll_dice(dice_configurations):
     return rolls, results
 
 def main():
-    st.title("interactive Dice Roller Simulator")
-
+    st.title("Interactive Dice Roller Simulator")
+    
     # Dictionary to hold the count of each dice type
-    dice_counts = {'d4':0, 'd6': 0, 'd8': 0, 'd10': 0, 'd12': 0, 'd20': 0, 'd100': 0}
+    dice_counts = {'d4': 0, 'd6': 0, 'd8': 0, 'd10': 0, 'd12': 0, 'd20': 0, 'd100': 0}
 
     # Display dice buttons and track counts
     col1, col2, col3 = st.columns(3)
@@ -44,6 +44,6 @@ def main():
         st.write(f"**Total before modifier:** {sum(rolls)}")
         st.write(f"**Modifier:** {modifier}")
         st.write(f"**Final Result:** {roll_total}")
-        
+
 if __name__ == "__main__":
     main()
