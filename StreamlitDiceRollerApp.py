@@ -15,7 +15,6 @@ button, .stButton>button {
     border-radius: 10px;
     padding: 10px 20px;
     border: none;
-    background-color: #cc0000;
     font-family: 'Libre Baskerville', serif; /* Ensure buttons also use the font */
 }
 button:hover, .stButton>button:hover {
