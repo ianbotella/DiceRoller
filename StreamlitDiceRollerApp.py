@@ -19,7 +19,7 @@ def main():
     'd100': 100
   }
   selected_die = st.selectbox("Select the type of die:", list(dice_options.keys()), format_func=lambda x: f"{x} ({dice_options[x]} sides)")
-  sides_per_die = dice_options[sides_per_die]
+  sides_per_die = dice_options[selected_die]
   
   modifier = st.number_input("Enter the modifier to apply to the total roll (can be negative):", value=0)
   
