@@ -4,21 +4,44 @@ import random
 # CSS to customize button appearances
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+@font-face {
+    font-family: 'Libre Baskerville';
+    src: url('fonts/LibreBaskerville-Regular.ttf') format('truetype'); /* Path to the font file */
+    font-weight: normal;
+    font-style: normal;
+}
 
-html, body, [class*="css-"] {
+@font-face {
+    font-family: 'Libre Baskerville';
+    src: url('fonts/LibreBaskerville-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Libre Baskerville';
+    src: url('fonts/LibreBaskerville-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+body {
     font-family: 'Libre Baskerville', serif;
 }
-button, .stButton>button {
+button {
     color: white;
     font-size: 16px;
     border-radius: 10px;
     padding: 10px 20px;
     border: none;
-    background-color: #cc0000;
-    font-family: 'Libre Baskerville', serif; /* Ensure buttons also use the font */
 }
-button:hover, .stButton>button:hover {
+.button-d4 { background-color: #cc0000; }
+.button-d6 { background-color: #cc0000; }
+.button-d8 { background-color: #cc0000; }
+.button-d10 { background-color: #cc0000; }
+.button-d12 { background-color: #cc0000; }
+.button-d20 { background-color: #cc0000; }
+.button-d100 { background-color: #cc0000; }
+button:hover {
     transform: scale(1.1);
 }
 </style>
