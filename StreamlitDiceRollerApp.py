@@ -43,6 +43,9 @@ def main():
     if 'dice_counts' not in st.session_state:
         st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
 
+    if 'results' not in st.session_state:
+        st.session_state.results = {}
+
     dice_types = [4, 6, 8, 10, 12, 20, 100]
     st.write("Seleccione los dados para lanzar:")
     cols = st.columns(len(dice_types)) # Crea una columna para cada tipo de dado
@@ -64,7 +67,6 @@ def main():
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     abilities_values = {}
     abilities_modifier = {}
-    total_modifier = 0
 
     for ability in abilities:
         value = st.sidebar.number_input(f"**{ability}**", min_value=1, max_value=30, value=10, step=1)
@@ -106,9 +108,19 @@ def main():
         total_modifier = sum(abilities_modifier[attr] for attr in selected_attributes if attr != "Sin Modificador")
         total_dice = sum(dice_results)
         total = total_dice + total_modifier
+
+        st.write("Resultados de la tirada:")
+        for dice, results in st.session_state.results.items():
+            st.write(f"Resultados para {dice}: {results}")
+        
         st.write(f"Total de dados: {total_dice}")
         st.write(f"Modificadores aplicados: {total_modifier}")
         st.write(f"Total: {total}")
+
+        # Resetear despues de mostrar los resultados
+        st.session_state.dice_counts = {key: 0 for key in st.session_state.dice_counts}
+        st.session_state.results = {}
+        st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
