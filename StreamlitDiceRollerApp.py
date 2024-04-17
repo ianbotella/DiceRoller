@@ -42,8 +42,8 @@ def main():
     if 'dice_counts' not in st.session_state:
         st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
 
-    if 'results' not in st.session_state:
-        st.session_state.results = {}
+    """if 'results' not in st.session_state:
+        st.session_state.results = {}"""
 
     dice_types = [4, 6, 8, 10, 12, 20, 100]
     st.write("Seleccione los dados para lanzar:")
@@ -68,7 +68,7 @@ def main():
 
     # Define abilities and get input for modifiers
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
-    abilities_values = {}
+    """abilities_values = {}
     abilities_modifier = {}
 
     for ability in abilities:
@@ -79,7 +79,7 @@ def main():
             modifier = calcular_modificador(value)
         abilities_values[ability] = value
         abilities_modifier[ability] = modifier
-        st.sidebar.write(f"Modificador: {modifier}")
+        st.sidebar.write(f"Modificador: {modifier}")"""
 
     # Adding 'Sin Modificador' option to the multiselect
     selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:", options = abilities + ["Sin Modificador"])
@@ -105,7 +105,8 @@ def main():
             if count > 0:
                 results = [random.randint(1, int(dice[1:])) for _ in range(count)]
                 dice_results.extend(results)
-                st.write(f"Resultados para {dice}: {results}")
+                st.session_state.results[dice] = results
+                #st.write(f"Resultados para {dice}: {results}")
 
         # Aplicar modificadores seleccionados
         total_modifier = sum(abilities_modifier[attr] for attr in selected_attributes if attr != "Sin Modificador")
