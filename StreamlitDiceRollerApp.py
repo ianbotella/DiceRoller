@@ -97,7 +97,7 @@ def main():
     if st.button("Lanzar los Dados"):
         dice_results = []
         for dice, count in st.session_state.dice_counts.items():
-            if count > o:
+            if count > 0:
                 results = [random.randint(1, int(dice[1:])) for _ in range(count)]
                 dice_results.extend(results)
                 st.write(f"Resultados para {dice}: {results}")
