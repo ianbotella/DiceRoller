@@ -1,4 +1,5 @@
 import streamlit as st
+import random
 
 def calcular_modificador(value):
     # Implementa las reglas de conversión aquí
@@ -63,6 +64,7 @@ def main():
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     abilities_values = {}
     abilities_modifier = {}
+    total_modifier = 0
 
     for ability in abilities:
         value = st.sidebar.number_input(f"**{ability}**", min_value=1, max_value=30, value=10, step=1)
@@ -76,8 +78,7 @@ def main():
 
     # Adding 'Sin Modificador' option to the multiselect
     selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:", options = abilities + ["Sin Modificador"])
-
-    # Calculate and display selected modifiers
+     # Calculate and display selected modifiers
     if selected_attributes:
         st.write("Modificadores seleccionados:")
         for attr in selected_attributes:
@@ -92,6 +93,22 @@ def main():
                 st.write(f"{attr}: {mod}")
     else:
         st.write("No se han seleccionado atributos.")
+    # Boton para lanzar los dados y calcular los resultados
+    if st.button("Lanzar los Dados"):
+        dice_results = []
+        for dice, count in st.session_state.dice_counts.items():
+            if count > o:
+                results = [random.randint(1, int(dice[1:])) for _ in range(count)]
+                dice results.extend(results)
+                st.write(f"Resultados para {dice}: {results}")
+
+        # Aplicar modificadores seleccionados
+        total_modifier = sum(abilities_modifier[attr] for attr in selected_attributes if attr != "Sin Modificador")
+        total_sice = sum(dice_results)
+        total = total_dice + total_modifier
+        st.write(f"Total de dados: {total_dice}")
+        st.write(f"Modificadores aplicados: {total_modifier}")
+        st.write(f"Total: {total}")
 
 if __name__ == "__main__":
     main()
