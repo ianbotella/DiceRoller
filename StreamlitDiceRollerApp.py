@@ -104,7 +104,7 @@ def main():
 
         # Aplicar modificadores seleccionados
         total_modifier = sum(abilities_modifier[attr] for attr in selected_attributes if attr != "Sin Modificador")
-        total_sice = sum(dice_results)
+        total_dice = sum(dice_results)
         total = total_dice + total_modifier
         st.write(f"Total de dados: {total_dice}")
         st.write(f"Modificadores aplicados: {total_modifier}")
