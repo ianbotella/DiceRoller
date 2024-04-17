@@ -35,12 +35,12 @@ def main():
 
 def manage_hp():
     st.sidebar.header("HP")
-    col1, colhp, col3 = st.sidebar.columns([1, 2, 1])
+    col1, col_hp, col3 = st.sidebar.columns([1, 2, 1])
     with col1:
         if st.button("-", key="minus"):
             st.session_state.hp -= 1
-    with colhp:
-        st.sidebar.write(f"Current HP: {st.session_state.hp}")
+    with col_hp:
+        col_hp.write(f"Current HP: {st.session_state.hp}")
     with col3:
         if st.button("+", "plus"):
             st.session_state.hp += 1
