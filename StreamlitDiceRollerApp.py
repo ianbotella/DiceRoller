@@ -3,7 +3,8 @@ import random
 
 def calcular_modificador(value):
     # Implementa las reglas de conversión aquí
-    if value <= 1:
+    return (value - 10) // 2
+    """if value <= 1:
         return -5
     elif value <= 3:
         return -4
@@ -34,7 +35,7 @@ def calcular_modificador(value):
     elif value <= 29:
         return 9
     else:
-        return 10
+        return 10"""
 
 def main():
     st.title("Dice Roller")
