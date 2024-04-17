@@ -53,7 +53,7 @@ def main():
 
     # Adding 'Sin Modificador' option to the multiselect
     options = abilities + ["Sin Modificador"]
-    selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:", options=abilities)
+    selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:", options = abilities + ["Sin Modificador"])
 
     # Calculate and display selected modifiers
     if selected_attributes:
