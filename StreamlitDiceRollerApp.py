@@ -49,7 +49,7 @@ def main():
     for idx, dice in enumerate(dice_types):
         label = f"d{dice}"
         with cols[idx]:
-            if st.button(f"Lanzar d{dice}"):
+            if st.button(f"d{dice}"):
                 st.session_state.dice_counts[label] += 1 # Incrementa el contador para el tipo de dado
 
     # Mostrar cuantos de cada tipo de dado han sido seleccionados
