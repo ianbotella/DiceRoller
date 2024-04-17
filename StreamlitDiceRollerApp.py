@@ -45,7 +45,10 @@ def main():
 
     for ability in abilities:
         value = st.sidebar.number_input(f"**{ability}**", min_value=1, max_value=30, value=10, step=1)
-        modifier = calcular_modificador(value)
+        if ability in ["Magia", "Competencia"]:
+            modifier = value
+        else:
+            modifier = calcular_modificador(value)
         abilities_values[ability] = value
         abilities_modifier[ability] = modifier
         st.sidebar.write(f"Modificador: {modifier}")
