@@ -99,7 +99,7 @@ def main():
         for dice, count in st.session_state.dice_counts.items():
             if count > o:
                 results = [random.randint(1, int(dice[1:])) for _ in range(count)]
-                dice results.extend(results)
+                dice_results.extend(results)
                 st.write(f"Resultados para {dice}: {results}")
 
         # Aplicar modificadores seleccionados
