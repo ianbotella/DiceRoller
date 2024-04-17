@@ -57,7 +57,7 @@ def main():
         st.write("Dados seleccionados:")
         for dice, count in st.session_state.dice_counts.items():
             if count > 0:
-                st.write(f"{count}d{dice}")
+                st.write(f"{count}{dice}")
 
     # Define abilities and get input for modifiers
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
