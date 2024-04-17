@@ -41,7 +41,7 @@ def manage_hp():
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px
+            font-size: 30px
         }
         .button-style{
             display: inline-flex;
@@ -55,7 +55,7 @@ def manage_hp():
         """,
         unsafe_allow_html=True
     )
-    col1, col_hp, col3 = st.sidebar.columns([1, 1, 1])
+    col1, col_hp, col3 = st.sidebar.columns([1, 2, 1])
     with col1:
         if st.button("-", key="minus"):
             st.session_state.hp -= 1 if st.session_state.hp > 0 else 0
