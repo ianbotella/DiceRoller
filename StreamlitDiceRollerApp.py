@@ -40,7 +40,7 @@ def manage_hp():
         if st.button("-", key="minus"):
             st.session_state.hp -= 1
     with col_hp:
-        col_hp.header(f"{st.session_state.hp}")
+        col_hp.title(f"{st.session_state.hp}")
     with col3:
         if st.button("+", "plus"):
             st.session_state.hp += 1
