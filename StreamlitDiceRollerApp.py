@@ -49,7 +49,7 @@ def handle_abilities_and_modifiers():
         st.sidebar.write(f"Modificador: {abilities_modifier[ability]}")
 
 def roll_and_display_results():
-    selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:",options = abilities + ["Sin Modificador"])
+    selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:",options =["Sin Modificador"] + abilities)
     if st.button("Lanzar Dados"):
         dice_results, total_dice = [], 0
         for dice, count in st.session_state.dice_counts.items():
