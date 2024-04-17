@@ -11,12 +11,14 @@ def setup_session_state():
     if 'dice_counts' not in st.session_state:
         st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
         st.session_state.results = {}
+        st.session_state.hp = 10
         
 def main():
     st.title("Dice Roller")
-    abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     setup_session_state()
-
+    manage_hp()
+    
+    abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     dice_types = [4, 6, 8, 10, 12, 20, 100]
     st.subheader("Seleccione los dados para lanzar:")
     cols = st.columns(len(dice_types))
@@ -30,6 +32,16 @@ def main():
     display_selected_dice()
     abilities_modifier = handle_abilities_and_modifiers(abilities)
     roll_and_display_results(abilities, abilities_modifier)
+
+def manage_hp():
+    st.sidebar.header("HP")
+    col1, col2, col3 = st.sidebar.columns([1, 2, 1])
+    with col1:
+        if st.button("-"):
+            st.session_state.hp -= 1
+    with col3:
+        if st.button("+"):
+            st.session_state.hp += 1
 
 def display_selected_dice():
     if any(st.session_state.dice_counts.values()):
