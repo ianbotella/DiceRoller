@@ -11,29 +11,28 @@ def setup_session_state():
     if 'dice_counts' not in st.session_state:
         st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
         st.session_state.results = {}
-        st.session_state.total_hp = 10
-        st.session_state.current_hp = st.session_state.total_hp
         
 def manage_hp():
-    st.sidebar.header("HP")
-    total_hp = st.sidebar.number_input("Total HP", min_value=1, value=st.session_state.total_hp, key="total_hp")
-    current_hp = st.sidebar.number_input("Current HP", min_value=0, max_value=total_hp, value=st.session_state.current_hp, key="current_hp")
+    st.sidebar.header("HP Management")
+    # Allow the user to set total HP only once or when they want to change it
+    if 'set_total_hp' not in st.session_state or st.sidebar.button("Change Total HP"):
+        st.session_state.set_total_hp = st.sidebar.number_input("Set Total HP", min_value=1, value=10, key="set_total_hp")
+        st.session_state.total_hp = st.session_state.set_total_hp
+        st.session_state.current_hp = st.session_state.total_hp
 
-    if st.session_state.total_hp != total_hp:
-        st.session_state.total_hp = total_hp
-        st.session_state.current_hp = total_hp
-    elif st.session_state.current_hp != current_hp:
-        st.session_state.current_hp = current_hp
-
+    st.sidebar.text(f"Total HP: {st.session_state.total_hp}")
     col1, col2, col3 = st.sidebar.columns([1, 1, 1])
-
+    
+    # Decrement HP
     with col1:
         if st.button('-', key='decrease_hp'):
             st.session_state.current_hp = max(st.session_state.current_hp - 1, 0)
-
+    
+    # Display Current HP
     with col2:
-        st.sidebar.text(f"{st.session_state.current_hp}/{st.session_state.total_hp}")
+        st.sidebar.text(f"Current HP: {st.session_state.current_hp}")
 
+    # Increment HP
     with col3:
         if st.button('+', key='increase_hp'):
             st.session_state.current_hp = min(st.session_state.current_hp + 1, st.session_state.total_hp)
