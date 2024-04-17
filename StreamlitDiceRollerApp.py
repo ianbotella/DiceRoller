@@ -61,6 +61,22 @@ def main():
             # Los demas atributos usan la funcion de conversion
             modificadores = calcular_modificador(valor)
         st.sidebar.write(f"Modificador de {atributo}: {modificadores}")
-
+        
+        # Define abilities and get input for modifiers
+        abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
+        abilities_values = {ability: st.sidebar.number_input(f"Valor de {ability}", min_value=1, max_value=30, value=10, step=1) for ability in abilities}
+    
+        # Multiselect for choosing attributes to apply modifiers
+        selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:", options=abilities)
+    
+        # Calculate and display selected modifiers
+        if selected_attributes:
+            selected_modifiers = {attr: calcular_modificador(abilities_values[attr]) for attr in selected_attributes}
+            st.write("Modificadores seleccionados:")
+            for attr, mod in selected_modifiers.items():
+                st.write(f"{attr}: {mod}")
+        else:
+            st.write("No se han seleccionado atributos.")
+            
 if __name__ == "__main__":
     main()
