@@ -38,6 +38,27 @@ def calcular_modificador(value):
 def main():
     st.title("Interactive Dice Roller Simulator")
 
+    # Inicializacion de contadores de dados en el estado de la sesion si no existen
+    if 'dice_counts' not in st.session_state:
+        st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
+
+    dice_types = [4, 6, 8, 10, 12, 20, 100]
+    st.write("Seleccione los dados para lanzar:")
+    cols = st.columns(len(dice_types)) # Crea una columna para cada tipo de dado
+
+    for idx, dice in enumerate(dice_types):
+        label = f"d{dice}"
+        with cols[idx]:
+            if st.button(f"Lanzar d{dice}"):
+                st.session_state.dice_counts[label] += 1 # Incrementa el contador para el tipo de dado
+
+    # Mostrar cuantos de cada tipo de dado han sido seleccionados
+    if any(st.session_sate.dice_counts.values()):
+        st.write("Dados seleccionados:")
+        for dice, count in st.session_state.dice_counts.items():
+            if count > 0:
+                st.write(f"{count}d{dice}")
+
     # Define abilities and get input for modifiers
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     abilities_values = {}
