@@ -4,46 +4,12 @@ import random
 def calcular_modificador(value):
     # Implementa las reglas de conversión aquí
     return (value - 10) // 2
-    """if value <= 1:
-        return -5
-    elif value <= 3:
-        return -4
-    elif value <= 5:
-        return -3
-    elif value <= 7:
-        return -2
-    elif value <= 9:
-        return -1
-    elif value <= 11:
-        return 0
-    elif value <= 13:
-        return 1
-    elif value <= 15:
-        return 2
-    elif value <= 17:
-        return 3
-    elif value <= 19:
-        return 4
-    elif value <= 21:
-        return 5
-    elif value <= 23:
-        return 6
-    elif value <= 25:
-        return 7
-    elif value <= 27:
-        return 8
-    elif value <= 29:
-        return 9
-    else:
-        return 10"""
-
+    
 def main():
     st.title("Dice Roller")
 
     if 'dice_counts' not in st.session_state:
         st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
-
-    if 'results' not in st.session_state:
         st.session_state.results = {}
 
     dice_types = [4, 6, 8, 10, 12, 20, 100]
@@ -51,10 +17,15 @@ def main():
     cols = st.columns(len(dice_types)) # Crea una columna para cada tipo de dado
 
     for idx, dice in enumerate(dice_types):
+    with cols[idx]:
+        if st.button(f"1d{dice}"):
+            st.session_state.dice_counts[f"d{dice}"] += 1
+            st.experimental_rerun()  # Optionally rerun to update UI immediately
+    """for idx, dice in enumerate(dice_types):
         label = f"d{dice}"
         with cols[idx]: # para añadir
             if st.button(f"1d{dice}"):
-                st.session_state.dice_counts[label] += 1
+                st.session_state.dice_counts[label] += 1"""
 
     # Mostrar cuantos de cada tipo de dado han sido seleccionados
     if any(st.session_state.dice_counts.values()):
