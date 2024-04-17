@@ -37,7 +37,7 @@ def calcular_modificador(value):
         return 10
 
 def main():
-    st.title("Interactive Dice Roller Simulator")
+    st.title("Dice Roller")
 
     if 'dice_counts' not in st.session_state:
         st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
@@ -46,13 +46,13 @@ def main():
         st.session_state.results = {}
 
     dice_types = [4, 6, 8, 10, 12, 20, 100]
-    st.write("Seleccione los dados para lanzar:")
+    st.header("Seleccione los dados para lanzar:")
     cols = st.columns(len(dice_types)) # Crea una columna para cada tipo de dado
 
     for idx, dice in enumerate(dice_types):
         label = f"d{dice}"
         with cols[idx]: # para añadir
-            if st.button(f"+1d{dice}"):
+            if st.button(f"1d{dice}"):
                 st.session_state.dice_counts[label] += 1
 
     # Mostrar cuantos de cada tipo de dado han sido seleccionados
@@ -78,10 +78,10 @@ def main():
         st.sidebar.write(f"Modificador: {modifier}")
 
     # Adding 'Sin Modificador' option to the multiselect
-    selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:", options = abilities + ["Sin Modificador"])
+    selected_attributes = st.multiselect.header("Seleccione los atributos cuyos modificadores desea utilizar:", options = abilities + ["Sin Modificador"])
      # Calculate and display selected modifiers
     if selected_attributes:
-        st.write("Modificadores seleccionados:")
+        st.subheader("Modificadores seleccionados:")
         for attr in selected_attributes:
             if attr == "Sin Modificador":
                 mod = 0
@@ -109,7 +109,7 @@ def main():
         total_dice = sum(dice_results)
         total = total_dice + total_modifier
 
-        st.write("Resultados de la tirada:")
+        st.header("Resultados de la tirada:")
         for dice, results in st.session_state.results.items():
             st.write(f"Resultados para {dice}: {results}")
         
