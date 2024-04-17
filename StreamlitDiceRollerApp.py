@@ -24,8 +24,40 @@ button:hover, .stButton>button:hover {
 """, unsafe_allow_html=True)
 
 def calculate_modifier(value):
-    # Tus reglas de conversión aquí
-    return ...
+    if value <= 1:
+        return -5
+    elif 2 <= value <= 3:
+        return -4
+    elif 4 <= value <= 5:
+        return -3
+    elif 6 <= value <= 7:
+        return -2
+    elif 8 <= value <= 9:
+        return -1
+    elif 10 <= value <= 11:
+        return 0
+    elif 12 <= value <= 13:
+        return 1
+    elif 14 <= value <= 15:
+        return 2
+    elif 16 <= value <= 17:
+        return 3
+    elif 18 <= value <= 19:
+        return 4
+    elif 20 <= value <= 21:
+        return 5
+    elif 22 <= value <= 23:
+        return 6
+    elif 24 <= value <= 25:
+        return 7
+    elif 26 <= value <= 27:
+        return 8
+    elif 28 <= value <= 29:
+        return 9
+    elif value >= 30:
+        return 10
+    else:
+        return 0
 
 def roll_dice(dice_configurations, total_modifier):
     rolls = []
@@ -41,6 +73,10 @@ def main():
     st.title("Interactive Dice Roller Simulator")
     st.sidebar.title("Configure Modifiers")
 
+    # Asegurate de inicializar dice_counts en session_state al inicio de la funcion main
+    if 'dice_counts' not in st.session_state:
+        st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
+        
     # Define abilities and get input for modifiers
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     modifiers = {ability: st.sidebar.number_input(f"Valor de {ability}", min_value=1, max_value=30, value=10, step=1) for ability in abilities}
@@ -54,9 +90,7 @@ def main():
     st.write(f"Modificador adicional seleccionado: {additional_modifier}")
 
     # Dice configuration
-    dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
-    cols = st.columns(3)
-    for i, key in enumerate(dice_counts):
+    for i, key in enumerate(st.session_state.dice_counts):
         with cols[i % 3]:
             if st.button(f"Añadir {key}"):
                 st.session_state.dice_counts[key] += 1
