@@ -46,7 +46,7 @@ def main():
         st.session_state.results = {}
 
     dice_types = [4, 6, 8, 10, 12, 20, 100]
-    st.header("Seleccione los dados para lanzar:")
+    st.subheader("Seleccione los dados para lanzar:")
     cols = st.columns(len(dice_types)) # Crea una columna para cada tipo de dado
 
     for idx, dice in enumerate(dice_types):
@@ -78,7 +78,7 @@ def main():
         st.sidebar.write(f"Modificador: {modifier}")
 
     # Adding 'Sin Modificador' option to the multiselect
-    st.header("Seleccione los atributos cuyos modificadores desea utilizar:")
+    st.subheader("Seleccione los atributos cuyos modificadores desea utilizar:")
     selected_attributes = st.multiselect("",options = abilities + ["Sin Modificador"])
      # Calculate and display selected modifiers
     if selected_attributes:
@@ -110,7 +110,7 @@ def main():
         total_dice = sum(dice_results)
         total = total_dice + total_modifier
 
-        st.header("Resultados de la tirada:")
+        st.subheader("Resultados de la tirada:")
         for dice, results in st.session_state.results.items():
             st.write(f"Resultados para {dice}: {results}")
         
