@@ -63,6 +63,9 @@ def main():
             if attr == "Sin Modificador":
                 mod = 0
                 st.write(f"{attr}: {mod}")
+            elif attr in ["Magia", "Competencia"]:
+                mod = abilities_values[attr]
+                st.write(f"{attr}: {mod}")
             else:
                 mod = calcular_modificador(abilities_values[attr])
                 st.write(f"{attr}: {mod}")
