@@ -1,7 +1,7 @@
 import streamlit as st
 
 def calcular_modificador(value):
-     if value <= 1:
+    if value <= 1:
         return -5
     elif 2 <= value <= 3:
         return -4
