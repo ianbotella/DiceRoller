@@ -120,7 +120,7 @@ def main():
         # Resetear despues de mostrar los resultados
         st.session_state.dice_counts = {key: 0 for key in st.session_state.dice_counts}
         st.session_state.results = {}
-        st.experimental_rerun()
+        # st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
