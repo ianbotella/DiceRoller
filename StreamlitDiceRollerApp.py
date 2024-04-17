@@ -60,8 +60,6 @@ def manage_hp():
         if st.button("+", key="plus"):
             st.session_state.hp += 1
 
-    st.sidebar.experimental_rerun()
-
 def display_selected_dice():
     if any(st.session_state.dice_counts.values()):
         st.write("Dados seleccionados:")
