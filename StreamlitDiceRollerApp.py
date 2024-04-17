@@ -61,7 +61,7 @@ def roll_and_display_results(abilities, abilities_modifier):
                 st.write(f"Resultados para {dice}: {results}")
 
         total_modifier = sum(abilities_modifier.get(attr, 0) for attr in selected_attributes if attr != "Sin Modificador")
-        #total_dice = sum(dice_results)
+        total_dice = sum(dice_results)
         total = total_dice + total_modifier
         st.subheader("Resultados de la tirada:")
         #for dice, results in st.session_state.results.items():
