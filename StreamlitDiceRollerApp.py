@@ -1,5 +1,4 @@
 import streamlit as st
-import random
 
 def calcular_modificador(value):
     # Implementa las reglas de conversión aquí
@@ -52,15 +51,18 @@ def main():
         st.sidebar.write(f"Modificador: {modifier}")
 
     # Adding 'Sin Modificador' option to the multiselect
-    options = abilities + ["Sin Modificador"]
     selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:", options = abilities + ["Sin Modificador"])
 
     # Calculate and display selected modifiers
     if selected_attributes:
-        selected_modifiers = {attr: calcular_modificador(abilities_values[attr]) for attr in selected_attributes}
         st.write("Modificadores seleccionados:")
-        for attr, mod in selected_modifiers.items():
-            st.write(f"{attr}: {mod}")
+        for attr in selected_attributes:
+            if attr == "Sin Modificador":
+                mod = 0
+                st.write(f"{attr}: {mod}")
+            else:
+                mod = calcular_modificador(abilities_values[attr])
+                st.write(f"{attr}: {mod}")
     else:
         st.write("No se han seleccionado atributos.")
 
