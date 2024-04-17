@@ -16,7 +16,6 @@ def setup_session_state():
 def main():
     st.title("Dice Roller")
     setup_session_state()
-    manage_hp()
     
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     dice_types = [4, 6, 8, 10, 12, 20, 100]
@@ -32,35 +31,6 @@ def main():
     display_selected_dice()
     abilities_modifier = handle_abilities_and_modifiers(abilities)
     roll_and_display_results(abilities, abilities_modifier)
-
-def manage_hp():
-    st.sidebar.header("HP")
-    st.sidebar.markdown("""
-        <style>
-        .hp-style{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    col1, col_hp, col3 = st.sidebar.columns([1, 2, 1])
-    hp_key = "hp"
-    if hp_key not in st.session_state:
-        st.session_state[hp_key] = 10
-    with col1:
-        decrease = st.button("-", key="minus")
-    if decrease:
-            st.session_state[hp_key] = max(st.session_state[hp_key] - 1, 0)
-    with col_hp:
-        st.write(f'<div class="hp-style">{st.session_state[hp_key]}</div>', unsafe_allow_html=True)
-    with col3:
-        increase = st.button("+", key="plus")
-    if increase:
-            st.session_state.hp += 1
 
 def display_selected_dice():
     if any(st.session_state.dice_counts.values()):
