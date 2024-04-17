@@ -41,7 +41,7 @@ def manage_hp():
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px
+            font-size: 30px
         }
         .button-style{
             display: inline-flex;
