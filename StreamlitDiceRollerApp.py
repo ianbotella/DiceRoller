@@ -17,10 +17,10 @@ def main():
     cols = st.columns(len(dice_types)) # Crea una columna para cada tipo de dado
 
     for idx, dice in enumerate(dice_types):
-    with cols[idx]:
-        if st.button(f"1d{dice}"):
-            st.session_state.dice_counts[f"d{dice}"] += 1
-            st.experimental_rerun()  # Optionally rerun to update UI immediately
+        with cols[idx]:
+            if st.button(f"1d{dice}"):
+                st.session_state.dice_counts[f"d{dice}"] += 1
+                st.experimental_rerun()  # Optionally rerun to update UI immediately
     """for idx, dice in enumerate(dice_types):
         label = f"d{dice}"
         with cols[idx]: # para añadir
