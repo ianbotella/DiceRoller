@@ -43,27 +43,24 @@ def manage_hp():
             justify-content: center;
             font-size: 30px
         }
-        .button-style{
-            display: inline-flex;
-            width: 50px;
-            height: 50px;
-            justify-content: center;
-            align-items: center;
-            margin: 0px 0px
-        }
         </style>
         """,
         unsafe_allow_html=True
     )
+    hp_key = "hp"
+    if hp_key not in st.session_state:
+        st.session_state[hp_key] = 10
     col1, col_hp, col3 = st.sidebar.columns([1, 2, 1])
     with col1:
         if st.button("-", key="minus"):
-            st.session_state.hp -= 1 if st.session_state.hp > 0 else 0
+            st.session_state[hp_key] = max(st.session_state[hp_key] - 1, 0)
     with col_hp:
-        col_hp.write(f'<div class="hp-style">{st.session_state.hp}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="hp-style">{st.session_state[hp_key]}</div>', unsafe_allow_html=True)
     with col3:
-        if st.button("+", "plus"):
+        if st.button("+", key="plus"):
             st.session_state.hp += 1
+
+    st.sidebar.experimental_rerun()
 
 def display_selected_dice():
     if any(st.session_state.dice_counts.values()):
