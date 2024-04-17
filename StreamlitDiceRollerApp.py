@@ -48,7 +48,7 @@ def main():
         value = st.sidebar.number_input(f"Valor de {ability}", min_value=1, max_value=30, value=10, step=1)
         modifier = calcular_modificador(value)
         abilities_values[ability] = value
-        abilities_modifiers[ability] = modifier
+        abilities_modifier[ability] = modifier
         st.sidebar.write(f"Modificador: {modifier}")
 
     # Adding 'Sin Modificador' option to the multiselect
