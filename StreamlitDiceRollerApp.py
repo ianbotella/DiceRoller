@@ -53,7 +53,7 @@ def main():
                 st.session_state.dice_counts[label] += 1 # Incrementa el contador para el tipo de dado
 
     # Mostrar cuantos de cada tipo de dado han sido seleccionados
-    if any(st.session_sate.dice_counts.values()):
+    if any(st.session_state.dice_counts.values()):
         st.write("Dados seleccionados:")
         for dice, count in st.session_state.dice_counts.items():
             if count > 0:
