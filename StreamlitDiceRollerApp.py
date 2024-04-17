@@ -2,91 +2,74 @@ import streamlit as st
 import random
 
 def calcular_modificador(value):
-    # Implementa las reglas de conversión aquí
     return (value - 10) // 2
-    
-def main():
-    st.title("Dice Roller")
 
+def roll_dice(dice_type, count):
+    return [random.randint(1, dice_type) for _ in range(count)]
+
+def setup_session_state():
     if 'dice_counts' not in st.session_state:
         st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
         st.session_state.results = {}
 
+def main():
+    st.title("Dice Roller")
+    setup_session_state()
+
     dice_types = [4, 6, 8, 10, 12, 20, 100]
     st.subheader("Seleccione los dados para lanzar:")
-    cols = st.columns(len(dice_types)) # Crea una columna para cada tipo de dado
+    cols = st.columns(len(dice_types))
 
     for idx, dice in enumerate(dice_types):
         with cols[idx]:
             if st.button(f"1d{dice}"):
                 st.session_state.dice_counts[f"d{dice}"] += 1
-                st.experimental_rerun()  # Optionally rerun to update UI immediately
+                st.experimental_rerun()
 
-    # Mostrar cuantos de cada tipo de dado han sido seleccionados
+    display_selected_dice()
+    handle_abilities_and_modifiers()
+    roll_and_display_results()
+
+def display_selected_dice():
     if any(st.session_state.dice_counts.values()):
         st.write("Dados seleccionados:")
         for dice, count in st.session_state.dice_counts.items():
             if count > 0:
                 st.write(f"{count}{dice}")
 
-    # Define abilities and get input for modifiers
+def handle_abilities_and_modifiers():
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     abilities_values = {}
     abilities_modifier = {}
 
     for ability in abilities:
         value = st.sidebar.number_input(f"**{ability}**", min_value=1, max_value=30, value=10, step=1)
-        if ability in ["Magia", "Competencia"]:
-            modifier = value
-        else:
-            modifier = calcular_modificador(value)
         abilities_values[ability] = value
-        abilities_modifier[ability] = modifier
-        st.sidebar.write(f"Modificador: {modifier}")
+        abilities_modifier[ability] = calcular_modificador(value) if ability not in ["Magia", "Competencia"] else value
+        st.sidebar.write(f"Modificador: {abilities_modifier[ability]}")
 
-    # Adding 'Sin Modificador' option to the multiselect
-    st.subheader("Seleccione los atributos cuyos modificadores desea utilizar:")
-    selected_attributes = st.multiselect("",options = abilities + ["Sin Modificador"])
-     # Calculate and display selected modifiers
-    if selected_attributes:
-        st.subheader("Modificadores seleccionados:")
-        for attr in selected_attributes:
-            if attr == "Sin Modificador":
-                mod = 0
-                st.write(f"{attr}: {mod}")
-            elif attr in ["Magia", "Competencia"]:
-                mod = abilities_values[attr]
-                st.write(f"{attr}: {mod}")
-            else:
-                mod = calcular_modificador(abilities_values[attr])
-                st.write(f"{attr}: {mod}")
-    else:
-        st.write("No se han seleccionado atributos.")
-    # Boton para lanzar los dados y calcular los resultados
-    if st.button("Lanzar los Dados"):
-        dice_results = []
+def roll_and_display_results():
+    selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:",options = abilities + ["Sin Modificador"])
+    if st.button("Lanzar Dados"):
+        dice_results, total_dice = [], 0
         for dice, count in st.session_state.dice_counts.items():
             if count > 0:
-                results = [random.randint(1, int(dice[1:])) for _ in range(count)]
+                results = roll_dice(int(dice[1:]), count)
                 dice_results.extend(results)
                 st.session_state.results[dice] = results
+                st.write(f"Resultados para {dice}: {results}")
 
-        # Aplicar modificadores seleccionados
-        total_modifier = sum(abilities_modifier[attr] for attr in selected_attributes if attr != "Sin Modificador")
-        total_dice = sum(dice_results)
+        total_modifier = sum(abilities_modifier.get(attr, 0) for attr in selected_attributes if attr != "Sin Modificador")
+        #total_dice = sum(dice_results)
         total = total_dice + total_modifier
-
         st.subheader("Resultados de la tirada:")
-        for dice, results in st.session_state.results.items():
-            st.write(f"Resultados para {dice}: {results}")
-        
+        #for dice, results in st.session_state.results.items():
+        #    st.write(f"Resultados para {dice}: {results}")
         st.write(f"Total de dados: {total_dice}")
         st.write(f"Modificadores aplicados: {total_modifier}")
         st.write(f"Total: {total}")
 
-        # Resetear despues de mostrar los resultados
         st.session_state.dice_counts = {key: 0 for key in st.session_state.dice_counts}
-        st.session_state.results = {}
 
 if __name__ == "__main__":
     main()
