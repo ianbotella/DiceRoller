@@ -11,6 +11,7 @@ def setup_session_state():
     if 'dice_counts' not in st.session_state:
         st.session_state.dice_counts = {f"d{num}": 0 for num in [4, 6, 8, 10, 12, 20, 100]}
         st.session_state.results = {}
+        st.session_state.abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
 
 def main():
     st.title("Dice Roller")
@@ -49,7 +50,7 @@ def handle_abilities_and_modifiers():
         st.sidebar.write(f"Modificador: {abilities_modifier[ability]}")
 
 def roll_and_display_results():
-    selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:",options =["Sin Modificador"] + abilities)
+    selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:",options =["Sin Modificador"] + st.session_state.abilities)
     if st.button("Lanzar Dados"):
         dice_results, total_dice = [], 0
         for dice, count in st.session_state.dice_counts.items():
