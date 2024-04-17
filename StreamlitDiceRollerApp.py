@@ -21,11 +21,6 @@ def main():
             if st.button(f"1d{dice}"):
                 st.session_state.dice_counts[f"d{dice}"] += 1
                 st.experimental_rerun()  # Optionally rerun to update UI immediately
-    """for idx, dice in enumerate(dice_types):
-        label = f"d{dice}"
-        with cols[idx]: # para añadir
-            if st.button(f"1d{dice}"):
-                st.session_state.dice_counts[label] += 1"""
 
     # Mostrar cuantos de cada tipo de dado han sido seleccionados
     if any(st.session_state.dice_counts.values()):
@@ -75,7 +70,6 @@ def main():
                 results = [random.randint(1, int(dice[1:])) for _ in range(count)]
                 dice_results.extend(results)
                 st.session_state.results[dice] = results
-                st.write(f"Resultados para {dice}: {results}")
 
         # Aplicar modificadores seleccionados
         total_modifier = sum(abilities_modifier[attr] for attr in selected_attributes if attr != "Sin Modificador")
