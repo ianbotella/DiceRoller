@@ -42,8 +42,7 @@ def manage_hp():
     with col3:
         if st.button("+"):
             st.session_state.hp += 1
-    with col2:
-        st.sidebar.write(f"{st.session_state.hp}")
+        st.sidebar.write(f"Current HP: {st.session_state.hp}")
 
 def display_selected_dice():
     if any(st.session_state.dice_counts.values()):
