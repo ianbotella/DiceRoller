@@ -28,8 +28,8 @@ def main():
                 st.experimental_rerun()
 
     display_selected_dice()
-    handle_abilities_and_modifiers(abilities)
-    roll_and_display_results(abilities)
+    abilities_modifier = handle_abilities_and_modifiers(abilities)
+    roll_and_display_results(abilities, abilities_modifier)
 
 def display_selected_dice():
     if any(st.session_state.dice_counts.values()):
@@ -41,14 +41,15 @@ def display_selected_dice():
 def handle_abilities_and_modifiers(abilities):
     abilities_values = {}
     abilities_modifier = {}
-
     for ability in abilities:
         value = st.sidebar.number_input(f"**{ability}**", min_value=1, max_value=30, value=10, step=1)
+        modifier = calcular_modificador(value) if ability not in ["Magia", "Competencia"] else value
         abilities_values[ability] = value
-        abilities_modifier[ability] = calcular_modificador(value) if ability not in ["Magia", "Competencia"] else value
-        st.sidebar.write(f"Modificador: {abilities_modifier[ability]}")
+        abilities_modifier[ability] = modifier
+        st.sidebar.write(f"Modificador: {modifier}")
+    return abilities_modifier
 
-def roll_and_display_results(abilities):
+def roll_and_display_results(abilities, abilities_modifier):
     selected_attributes = st.multiselect("Seleccione los atributos cuyos modificadores desea utilizar:",options =["Sin Modificador"] + abilities)
     if st.button("Lanzar Dados"):
         dice_results, total_dice = [], 0
