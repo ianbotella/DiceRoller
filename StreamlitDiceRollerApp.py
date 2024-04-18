@@ -17,7 +17,7 @@ def setup_session_state():
 def manage_hp():
     st.sidebar.header("HP Management")
 
-    st.session_state.total_hp = st.sidebar.number_input("Set Total HP", min_value=1, value=st.session_state.total_hp, key="total_hp")
+    st.session_state.total_hp = st.sidebar.number_input("Set Total HP", min_value=1, max_value=st.session_state.total_hp, value=st.session_state.total_hp, key="total_hp")
     st.session_state.current_hp = st.sidebar.number_input("Current HP", min_value=0, max_value=st.session_state.total_hp, value=st.session_state.current_hp, key="current_hp")
 
     col1, col2, col3 = st.sidebar.columns([1, 1, 1])
