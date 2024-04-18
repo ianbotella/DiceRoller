@@ -14,32 +14,9 @@ def setup_session_state():
         st.session_state.total_hp = 10
         st.session_state.current_hp = st.session_state.total_hp
         
-def manage_hp():
-    st.sidebar.header("HP Management")
-
-    st.session_state.total_hp = st.sidebar.number_input("Set Total HP", min_value=1, value=st.session_state.total_hp, key="total_hp")
-    st.session_state.current_hp = st.sidebar.number_input("Current HP", min_value=0, max_value=st.session_state.total_hp, value=st.session_state.current_hp, key="current_hp")
-
-    col1, col2, col3 = st.sidebar.columns([1, 1, 1])
-    
-    # Decrement HP
-    with col1:
-        if st.button('-', key='decrease_hp'):
-            st.session_state.current_hp = max(st.session_state.current_hp - 1, 0)
-    
-    # Display Current HP
-    with col2:
-        st.sidebar.text(f"Current HP: {st.session_state.current_hp}")
-
-    # Increment HP
-    with col3:
-        if st.button('+', key='increase_hp'):
-            st.session_state.current_hp = min(st.session_state.current_hp + 1, st.session_state.total_hp)
-
 def main():
     st.title("Dice Roller")
     setup_session_state()
-    manage_hp()
     
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     dice_types = [4, 6, 8, 10, 12, 20, 100]
