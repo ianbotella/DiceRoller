@@ -14,42 +14,9 @@ def setup_session_state():
         st.session_state.total_hp = 10
         st.session_state.current_hp = st.session_state.total_hp
 
-def manage_hp():
-    st.sidebar.header("HP Management")
-    # If the total HP is not set or needs to be changed
-    if 'set_total_hp' not in st.session_state or st.sidebar.button("Change Total HP"):
-        st.session_state.total_hp = st.sidebar.number_input("Set Total HP", min_value=1, value=10, key="set_total_hp")
-        st.session_state.current_hp = st.session_state.total_hp
-
-    # Input for heal or damage value
-    hp_adjustment = st.sidebar.number_input("Heal/Damage Amount", min_value=0, value=0, key="hp_adjustment")
-
-    col1, col2, col3 = st.sidebar.columns(3)
-
-    # Heal button
-    with col1:
-        if st.button('Heal', key='heal'):
-            st.session_state.current_hp = min(st.session_state.current_hp + hp_adjustment, st.session_state.total_hp)
-            st.session_state.hp_adjustment = 0  # Reset the input value after the operation
-
-    # Display current and total HP
-    with col2:
-        st.sidebar.write(f"Current HP: {st.session_state.current_hp}/{st.session_state.total_hp}")
-
-    # Damage button
-    with col3:
-        if st.button('Damage', key='damage'):
-            st.session_state.current_hp = max(st.session_state.current_hp - hp_adjustment, 0)
-            st.session_state.hp_adjustment = 0  # Reset the input value after the operation
-
-    # Optional: Temporary HP input (not included in the image but mentioned)
-    # temp_hp = st.sidebar.number_input("Temporary HP", min_value=0, value=0, key="temp_hp")
-
-
 def main():
     st.title("Dice Roller")
     setup_session_state()
-    manage_hp()
     
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     dice_types = [4, 6, 8, 10, 12, 20, 100]
