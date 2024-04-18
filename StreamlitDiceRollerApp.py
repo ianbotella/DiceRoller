@@ -49,6 +49,7 @@ def manage_hp():
 def main():
     st.title("Dice Roller")
     setup_session_state()
+    manage_hp()
     
     abilities = ["Fuerza", "Destreza", "Constitución", "Inteligencia", "Sabiduría", "Carisma", "Magia", "Competencia"]
     dice_types = [4, 6, 8, 10, 12, 20, 100]
